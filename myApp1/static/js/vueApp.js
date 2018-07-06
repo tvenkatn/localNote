@@ -1,4 +1,5 @@
-const API_URL = 'http://192.168.1.8:5005'
+// const API_URL = 'http://192.168.1.8:5005'
+const API_URL = 'http://localhost:5005'
 
 
 var app = new Vue(
@@ -26,7 +27,6 @@ var app = new Vue(
                     { id: 111, text, date: new Date(Date.now()).toLocaleString() }
                 )
                 this.postNote(this.note.text)
-                this.getAllNotes()
             },
             
             postNote(arg1) {

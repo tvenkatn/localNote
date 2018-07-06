@@ -37,6 +37,10 @@ def index():
         createDb.createDbase(dbName)
     return dbex
 
+@app.route('/foo')
+def foo():
+    return request.base_url
+
 @app.route('/vueApp')
 def vueApp():
     return render_template('index.html')
@@ -50,7 +54,8 @@ def getAllNotes():
     for note in notes:
         record['id'] = note.id
         record['text'] = note.note
-        record['date'] = note.noteTime.strftime("%Y%m%d_%Hh%Mm%Ss")
+        # record['date'] = note.noteTime.strftime("%Y%m%d %Hh %Mm %Ss")
+        record['date'] = note.noteTime.strftime("%d/%m/%Y, %H:%M hrs")
         allNotes.append(json.dumps(record))
     return jsonify(allNotes)
     # return "I have a total of {} notes stored!".format(Note.query.count())

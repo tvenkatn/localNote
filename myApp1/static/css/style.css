@@ -1,0 +1,38 @@
+/* modified from http://davidtkatz.com/public_css/noteMaster.css */
+#app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin: 20px;
+}
+
+.form {
+    text-align: left;
+}
+
+.card {
+    display: flex;
+    text-align: left;
+    border: 1px solid #beccdb;
+    background-color: rgb(215, 238, 238);
+    border-radius: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.card-subtitle {
+    font-style: italic;
+}
+
+.note {
+    padding: 5px;
+}
+
+p {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 12pt;
+}
