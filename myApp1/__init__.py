@@ -79,3 +79,8 @@ def postNote():
     db.session.commit()
     return "Note posted at {1}: {0}".format(newnote.note, newnote.noteTime.strftime("%Y%m%d_%Hh%Mm%Ss"))
     
+@app.route('/deleteNote', methods = ["DELETE"])
+def deleteNote():
+    Note.query.filter_by(id=int(request.json['id'])).delete()
+    db.session.commit()
+    return "deleted"

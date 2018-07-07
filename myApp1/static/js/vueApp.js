@@ -1,5 +1,5 @@
-// const API_URL = 'http://192.168.1.8:5005'
-const API_URL = 'http://localhost:5005'
+const API_URL = 'http://192.168.1.8:5005'
+// const API_URL = 'http://localhost:5005'
 
 
 var app = new Vue(
@@ -7,9 +7,8 @@ var app = new Vue(
         el: "#app",
         delimiters: ["[[","]]"],
         data: function () {
-            console.log("I am inside DATA")
             return {
-                title: "Notemaster!",
+                title: "local Note",
                 isLoading: false,
                 note: {
                     text: ""
@@ -30,8 +29,6 @@ var app = new Vue(
             },
             
             postNote(arg1) {
-                console.log("I am inside PostNote axios JS function!")
-                console.log("This is the API URL: " + API_URL)
                 axios.post(`${API_URL}/postNote`, {
                     text: arg1
                 })
@@ -41,22 +38,30 @@ var app = new Vue(
                     .catch(function (error) {
                         console.log(error);
                     });
+            },
+
+            removeNote(note) {
+                // console.log(note.id);
+                this.notes.pop(note); // delete from UI
+                axios.delete(`${API_URL}/deleteNote`, { data: { id: note.id } })
+                    .then((response) => {
+                        // console.log(response)
+                    }, (error) => {
+                        // error callback
+                    });
             }
         },
 
         created() {
             // https://stackoverflow.com/questions/40996344/axios-cant-set-data
-            console.log("I've started in created")
             axios.get(`${API_URL}/getAllNotes`)
                 .then((response) => {
                     this.notes = response.data.map(JSON.parse);
                 }).catch(function (error) {
-                    console.log("I am in error")
                     // handle error
                     console.log(error);
                 })
                 .then(function () {
-                    console.log("I am finally here")
                     // always executed
                 });
         }
