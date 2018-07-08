@@ -30,6 +30,7 @@ var app = new Vue(
                     this.notes.push(
                         { id: idd, text, date: new Date(Date.now()).toLocaleString() }
                     )
+                
                     this.note.text = "";
                     
                 }
@@ -69,6 +70,9 @@ var app = new Vue(
             axios.get(`${API_URL}/getAllNotes`)
                 .then((response) => {
                     this.notes = response.data.map(JSON.parse);
+                    this.notes.sort(function (a, b) {
+                        return a.id - b.id;
+                    })
                 }).catch(function (error) {
                     // handle error
                     console.log(error);
