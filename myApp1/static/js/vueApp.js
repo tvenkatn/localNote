@@ -21,7 +21,7 @@ var app = new Vue(
         },
         methods: {
             addNote() {
-                if (/^ *$/.test(this.note)) {
+                if (/^ *$/.test(this.note.text) || this.note.text.trim() == "") {
                     console.log("empty string!")
                 } else {
                     let { text } = this.note
@@ -30,6 +30,7 @@ var app = new Vue(
                     this.notes.push(
                         { id: idd, text, date: new Date(Date.now()).toLocaleString() }
                     )
+                    this.note.text = "";
                     
                 }
             },

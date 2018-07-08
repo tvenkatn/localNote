@@ -15,8 +15,7 @@
         <div class="form">
             <div class="form-group">
                 <label>Note text <span class="remaining">[[remainingCount]]</span></label>
-                <textarea class="form-control" default="" v-model="note.text" @keyup="countdown"></textarea>
-                
+                    <textarea class="form-control" default="" v-model="note.text" @keyup="countdown" @keyup.enter.exact="addNote">""</textarea>
 
                 <!-- <textarea class="form-control" default="" v-model="note.text" @keyup.enter="addNote"></textarea> -->
             </div>
