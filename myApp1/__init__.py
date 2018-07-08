@@ -77,7 +77,7 @@ def postNote():
     newnote = Note(thisNote)
     db.session.add(newnote)
     db.session.commit()
-    return "Note posted at {1}: {0}".format(newnote.note, newnote.noteTime.strftime("%Y%m%d_%Hh%Mm%Ss"))
+    return str(newnote.id)
     
 @app.route('/deleteNote', methods = ["DELETE"])
 def deleteNote():

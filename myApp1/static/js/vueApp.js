@@ -10,22 +10,28 @@ var app = new Vue(
             return {
                 title: "local Note",
                 isLoading: false,
+                remainingCount: 1000,
+                maxCount: 1000,
                 note: {
                     text: ""
                 },
                 notes: [
-                        {id: 1, text: "test note 1", date: "20180705_16h04m05s"}, 
-                        {id: 3, text: "Note format string test for status", date: "20180705_16h05m54s"}
                 ]
             }
         },
         methods: {
             addNote() {
-                let { text } = this.note
-                this.notes.push(
-                    { id: 111, text, date: new Date(Date.now()).toLocaleString() }
-                )
-                this.postNote(this.note.text)
+                if (/^ *$/.test(this.note)) {
+                    console.log("empty string!")
+                } else {
+                    let { text } = this.note
+                    var idd = 1
+                    this.postNote(this.note.text)
+                    this.notes.push(
+                        { id: idd, text, date: new Date(Date.now()).toLocaleString() }
+                    )
+                    
+                }
             },
             
             postNote(arg1) {
@@ -33,7 +39,7 @@ var app = new Vue(
                     text: arg1
                 })
                     .then(function (response) {
-                        console.log(response);
+                        console.log("ID of new note is " + response.data);
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -49,6 +55,11 @@ var app = new Vue(
                     }, (error) => {
                         // error callback
                     });
+            },
+            
+            countdown() {
+                this.remainingCount = this.maxCount - this.note.text.length;
+                this.hasError = this.remainingCount < 0;
             }
         },
 
