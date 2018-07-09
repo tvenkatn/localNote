@@ -12,6 +12,8 @@ var app = new Vue(
                 isLoading: false,
                 remainingCount: 1000,
                 maxCount: 1000,
+                newIdForNote: 1,
+                latestIdForNote: 0,
                 note: {
                     text: ""
                 },
@@ -25,27 +27,31 @@ var app = new Vue(
                     console.log("empty string!")
                 } else {
                     let { text } = this.note
-                    var idd = 1
                     this.postNote(this.note.text)
                     this.notes.push(
-                        { id: idd, text, date: new Date(Date.now()).toLocaleString() }
+                        { id: this.newIdForNote, text, date: new Date(Date.now()).toLocaleString() }
                     )
                 
                     this.note.text = "";
+                    // this.updateLatestNote(this.latestIdForNote);
                     
                 }
             },
             
             postNote(arg1) {
+                // var that = this.latestIdForNote;
                 axios.post(`${API_URL}/postNote`, {
                     text: arg1
                 })
                     .then(function (response) {
                         console.log("ID of new note is " + response.data);
+                        that = parseInt(response.data);
                     })
                     .catch(function (error) {
                         console.log(error);
                     });
+                // console.log("that is " + that);
+                // this.latestIdForNote = that;
             },
 
             removeNote(note) {
@@ -62,6 +68,23 @@ var app = new Vue(
             countdown() {
                 this.remainingCount = this.maxCount - this.note.text.length;
                 this.hasError = this.remainingCount < 0;
+            },
+
+            updateLatestNote(thisid) {
+                // not working as axios is async and it is executing last, even after this function!
+                var tnote = this.notes
+                var nid = this.newIdForNote
+                console.log("updating notes id with " + thisid);
+                for (var i in tnote) {
+                    console.log("in for loop!" + tnote[i].id);
+                    if (tnote[i].id == nid) {
+                        console.log("Found the note. Text is " + tnote[i].text);
+                        tnote[i].id = thisid;
+                        break; //Stop this loop, we found it!
+                    }
+                }
+                this.notes = tnote;
+                // this.notes.filter(ob => ob.id == this.newIdForNote)[0].id = thisid
             }
         },
 
