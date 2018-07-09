@@ -5,7 +5,7 @@ import datetime
 import json
 
 app = Flask(__name__)
-app.config.from_pyfile('../application.cfg')
+app.config.from_pyfile('../application.py')
 # cors = CORS(app, resources={r"/*": {"origins": "*"}})
 cors = CORS(app)
 
