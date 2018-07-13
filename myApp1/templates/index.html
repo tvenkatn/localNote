@@ -19,6 +19,7 @@
                 <!-- <textarea class="form-control" default="" v-model="note.text" @keyup.enter="addNote"></textarea> -->
             </div>
             <button class="btn btn-primary" @click="addNote">Add</button>
+            <button class="btn btn-primary" @click="activeNotes">filter</button>
         </div>
             <div class="col-sm-8 note" v-for="note in notes.slice().reverse()">
                 <div class="card">
