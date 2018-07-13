@@ -1,5 +1,5 @@
-const API_URL = 'http://192.168.1.8:5005'
-// const API_URL = 'http://localhost:5005'
+// const API_URL = 'http://192.168.1.8:5005'
+const API_URL = 'http://localhost:5005'
 
 
 var app = new Vue(
@@ -85,6 +85,12 @@ var app = new Vue(
                 }
                 this.notes = tnote;
                 // this.notes.filter(ob => ob.id == this.newIdForNote)[0].id = thisid
+            },
+            
+            activeNotes() {
+                return this.notes.filter(function (u) {
+                    return u.day == "07"
+                })
             }
         },
 
@@ -93,6 +99,9 @@ var app = new Vue(
             axios.get(`${API_URL}/getAllNotes`)
                 .then((response) => {
                     this.notes = response.data.map(JSON.parse);
+                    this.notes.forEach(ob => ob.day = ob.date.substring(0,2))
+                    this.notes.forEach(ob => ob.month = ob.date.substring(3,5))
+                    this.notes.forEach(ob => ob.year = ob.date.substring(6,10))
                     this.notes.sort(function (a, b) {
                         return a.id - b.id;
                     })
@@ -106,3 +115,7 @@ var app = new Vue(
         }
     }
 ) 
+
+// TRICK: compute a new property into JSON
+// a = [{ 'b': 3, 'c': 4 }, { 'b': 6, 'c': 9 }]
+// a.forEach(ob => ob.d = ob.b + ob.c)
