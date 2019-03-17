@@ -1,5 +1,6 @@
 import re
 from nltk.corpus import stopwords
+from nltk.corpus import wordnet as wn
 from nltk.tokenize import word_tokenize
 """ before nltk, do:
 pip install nltk

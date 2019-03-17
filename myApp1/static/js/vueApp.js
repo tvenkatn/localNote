@@ -1,5 +1,5 @@
-// const API_URL = 'http://192.168.1.8:5005'
-const API_URL = 'http://localhost:5005'
+const API_URL = 'http://192.168.1.6:5005'
+// const API_URL = 'http://localhost:5005'
 
 
 var app = new Vue(
