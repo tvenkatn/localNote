@@ -1,8 +1,8 @@
-from flask import Flask, jsonify, render_template, url_for, request
+from flask import Flask, jsonify, render_template, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import datetime
-import json
+import json, os
 
 app = Flask(__name__)
 app.config.from_pyfile('../application.py')
@@ -12,7 +12,7 @@ cors = CORS(app)
 db = SQLAlchemy(app)
 dbName = "mynoteapp1"
 
-from bin.reference import createDb
+# from bin.reference import createDb
 
 class Note(db.Model):
     __tablename__="Note"
@@ -28,19 +28,6 @@ class Note(db.Model):
 ###
 
 @app.route('/')
-def index():
-    dbe = createDb.findDb(dbName)
-    if dbe:
-        dbex = "{} Exists".format(dbName)
-    else:
-        dbex = "{} Does not exist".format(dbName)
-        createDb.createDbase(dbName)
-    return dbex
-
-@app.route('/foo')
-def foo():
-    return request.base_url
-
 @app.route('/vueApp')
 def vueApp():
     return render_template('index.html')
@@ -84,3 +71,7 @@ def deleteNote():
     Note.query.filter_by(id=int(request.json['id'])).delete()
     db.session.commit()
     return "deleted"
+
+@app.route('/favicon.ico') 
+def favicon(): 
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')

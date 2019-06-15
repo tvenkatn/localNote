@@ -13,14 +13,15 @@ from app import db
 #         self.weight_=weight_
 #         self.height_=height_
 
+
 class Note(db.Model):
-    __tablename__="Note"
+    __tablename__ = "Note"
     id = db.Column(db.Integer, primary_key=True)
-    note =db.Column(db.BLOB)
+    note = db.Column(db.BLOB)
     noteTime = db.Column(db.DateTime, default=datetime.datetime.now)
 
     def __init__(self, note):
         self.note = note
-        
+ 
     def __repr__(self):
         return '<Note: %r>' % self.note
