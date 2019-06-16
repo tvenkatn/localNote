@@ -6,13 +6,10 @@ import json, os
 
 app = Flask(__name__)
 app.config.from_pyfile('../application.py')
-# cors = CORS(app, resources={r"/*": {"origins": "*"}})
 cors = CORS(app)
-
 db = SQLAlchemy(app)
-dbName = "mynoteapp1"
 
-# from bin.reference import createDb
+dbName = "mynoteapp1"
 
 class Note(db.Model):
     __tablename__="Note"
@@ -75,3 +72,4 @@ def deleteNote():
 @app.route('/favicon.ico') 
 def favicon(): 
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+

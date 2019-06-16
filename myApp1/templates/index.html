@@ -1,7 +1,7 @@
 <!Doctype html>
 <html>
 <head>
-    <title>local Note</title>
+    <title>Local Note</title>
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- Latest compiled and minified CSS -->
@@ -10,22 +10,28 @@
 </head>
 
 <body>
+<div class="container">
     <div id="app">
         <h3>[[title]]</h3>
+        <div id="summernote"></div>
+
         <div class="form">
             <div class="form-group">
                 <label>Note text <span class="remaining">[[remainingCount]]</span></label>
                     <textarea class="form-control" default="" v-model="note.text" @keyup="countdown" @keyup.enter.exact="addNote">""</textarea>
                 <!-- <textarea class="form-control" default="" v-model="note.text" @keyup.enter="addNote"></textarea> -->
             </div>
-            <button class="btn btn-primary" @click="addNote">Add</button>
-            <button class="btn btn-primary" @click="activeNotes">filter</button>
+            <form class="form-inline">
+                <button class="btn btn-primary" @click="addNote">Add</button>
+                <input id="filterNote" class="form-control" v-model="filterText" placeholder="filter"></input>
+            </form>
         </div>
-            <div class="col-sm-8 note" v-for="note in notes.slice().reverse()">
+        <br>
+            <div class="col-sm-8 note" v-for="note in filteredNotes.slice().reverse()">
                 <div class="card">
                     <div class="card-block">
-                        <div class="cardtext">
-                            <span style="white-space: pre-line;">[[note.text]]</span>
+                        <div class="cardtext"> 
+                            <span style="white-space: pre-line;" v-html="note.text"></span>
                             <button class="close" @click="removeNote(note)">&times;</button>
                         </div>
                         <h6 class="card-subtitle mb-2 text-muted">[[note.date]]</h6>
@@ -33,20 +39,7 @@
                 </div>
             </div>
     </div>
+</div>
     <script type="text/Javascript" src="{{ url_for('static', filename='js/vueApp.js')}}"></script>
 </body>
 </html>
-
-
-
-<!-- def compute_all_parens(n): 
-    def compute_parens(left, right, s): 
-        if right == n:
-            yield s
-            return
-        if left < n:
-            yield from compute_parens(left + 1, right, s + "(")
-        if right < left:
-            yield from compute_parens(left, right + 1, s + ")") 
-        
-    yield from compute_parens(0, 0, "") -->

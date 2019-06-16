@@ -1,14 +1,13 @@
 // const API_URL = 'http://192.168.1.8:5005'
 const API_URL = 'http://localhost:5005'
 
-
 var app = new Vue(
     {
         el: "#app",
         delimiters: ["[[","]]"],
         data: function () {
             return {
-                title: "local Note",
+                title: "Local Note",
                 isLoading: false,
                 remainingCount: 1000,
                 maxCount: 1000,
@@ -18,7 +17,8 @@ var app = new Vue(
                     text: ""
                 },
                 notes: [
-                ]
+                ],
+                filterText: ""
             }
         },
         methods: {
@@ -85,12 +85,13 @@ var app = new Vue(
                 }
                 this.notes = tnote;
                 // this.notes.filter(ob => ob.id == this.newIdForNote)[0].id = thisid
-            },
-            
-            activeNotes() {
-                return this.notes.filter(function (u) {
-                    return u.day == "07"
-                })
+            }
+        },
+        computed: {
+            filteredNotes() {
+                return this.notes.filter((element) => {
+                    return element.text.match(this.filterText);
+                });
             }
         },
 
